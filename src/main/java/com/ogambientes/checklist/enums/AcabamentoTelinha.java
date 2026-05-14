@@ -1,0 +1,15 @@
+package com.ogambientes.checklist.enums;
+
+public enum AcabamentoTelinha {
+    TELINHA_06OCSE80,
+    TELINHA_06OCSE80_ESCURA,
+    TELINHA_06OCSE80_PINTADA,
+    TELINHA_07TC,
+    TELINHA_07TC_ESCURA,
+    TELINHA_07TC_PINTADA,
+    TELINHA_07T19,
+    TELINHA_07T19_ESCURA,
+    TELINHA_07T19_PINTADA,
+    TELINHA_ESPECIAL
+
+}
