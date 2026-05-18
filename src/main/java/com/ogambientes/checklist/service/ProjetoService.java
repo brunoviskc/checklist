@@ -33,6 +33,31 @@ public class ProjetoService {
         return projetoRepository.save(projeto);
     }
 
+    @Transactional
+    public ProjetoModel atualizarProjeto(Long id, ProjetoModel projetoAtualizado) {
+        ProjetoModel projetoExistente = projetoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado"));
+
+        projetoExistente.setNomeCliente(projetoAtualizado.getNomeCliente());
+        projetoExistente.setNomeVendedor(projetoAtualizado.getNomeVendedor());
+        projetoExistente.setNomeArquiteto(projetoAtualizado.getNomeArquiteto());
+
+        if (projetoAtualizado.getDataCriacao() != null) {
+            projetoExistente.setDataCriacao(projetoAtualizado.getDataCriacao());
+        }
+
+        projetoExistente.getAmbientes().clear();
+
+        if (projetoAtualizado.getAmbientes() != null && !projetoAtualizado.getAmbientes().isEmpty()) {
+            for (AmbienteModel ambiente : projetoAtualizado.getAmbientes()) {
+                ambiente.setProjeto(projetoExistente);
+                projetoExistente.getAmbientes().add(ambiente);
+            }
+        }
+
+        return projetoRepository.save(projetoExistente);
+    }
+
     public List<ProjetoModel> listarTodos(){
         return projetoRepository.findAll();
     }

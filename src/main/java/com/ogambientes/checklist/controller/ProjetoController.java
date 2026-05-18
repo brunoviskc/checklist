@@ -31,6 +31,16 @@ public class ProjetoController {
         return ResponseEntity.status(HttpStatus.OK).body(projetos);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjetoModel> atualizarProjeto(@PathVariable Long id, @Valid @RequestBody ProjetoModel projetoModel) {
+        if (projetoService.buscarPorId(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        ProjetoModel projetoAtualizado = projetoService.atualizarProjeto(id, projetoModel);
+        return ResponseEntity.ok(projetoAtualizado);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProjetoModel> buscarPorId(@PathVariable Long id){
         Optional<ProjetoModel> projeto = projetoService.buscarPorId(id);
